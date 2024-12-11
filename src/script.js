@@ -7,6 +7,14 @@ import {
 
 //Scene
 const scene = new THREE.Scene();
+// loading manager section
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onStart = () => console.log(`start`);
+loadingManager.onLoad = () => console.log(`loading`);
+loadingManager.onProgress = () => console.log(`proggress`);
+loadingManager.onError = () => console.log(`error`);
+const textureLoader = new THREE.TextureLoader(loadingManager);
+const mapTexture = textureLoader.load("/texture/color.jpg");
 
 //Resizing
 window.addEventListener("resize", () => {
@@ -25,7 +33,7 @@ window.addEventListener("resize", () => {
 
 //Mesh
 const geometry = new THREE.PlaneBufferGeometry(1, 1);
-const material = new THREE.MeshBasicMaterial({ color: "purple" });
+const material = new THREE.MeshBasicMaterial({ map: mapTexture });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
