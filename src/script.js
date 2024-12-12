@@ -32,16 +32,8 @@ window.addEventListener("resize", () => {
 });
 
 //Mesh
-const geometry = new THREE.PlaneBufferGeometry(1, 1 /*64, 64 */);
-const material = new THREE.MeshBasicMaterial({
-  map: mapTexture,
-  //wireframe: true,
-  // color: new THREE.Color(0x77777733),
-  //transparent: true,
-  //opacity: 0.3,
-  side: THREE.DoubleSide,
-  // visible: false,
-});
+const geometry = new THREE.TorusBufferGeometry(0.3, 0.2, 32, 32);
+const material = new THREE.MeshNormalMaterial();
 
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
