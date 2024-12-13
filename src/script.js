@@ -7,14 +7,12 @@ import {
 
 //Scene
 const scene = new THREE.Scene();
-// loading manager section
-const loadingManager = new THREE.LoadingManager();
-loadingManager.onStart = () => console.log(`start`);
-loadingManager.onLoad = () => console.log(`loading`);
-loadingManager.onProgress = () => console.log(`proggress`);
-loadingManager.onError = () => console.log(`error`);
-const textureLoader = new THREE.TextureLoader(loadingManager);
-const mapTexture = textureLoader.load("/texture/color.jpg");
+
+//lights
+const ambientLight = new THREE.AmbientLight(0xff0055, 0.3);
+const pointLight = new THREE.PointLight(0xffff00, 1);
+pointLight.position.set(2, 2, 2);
+scene.add(ambientLight, pointLight);
 
 //Resizing
 window.addEventListener("resize", () => {
@@ -32,9 +30,8 @@ window.addEventListener("resize", () => {
 });
 
 //Mesh
-const geometry = new THREE.TorusBufferGeometry(0.3, 0.2, 32, 32);
-const material = new THREE.MeshNormalMaterial();
-
+const geometry = new THREE.TorusGeometry(0.3, 0.2, 32, 32);
+const material = new THREE.MeshLambertMaterial();
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
