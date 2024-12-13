@@ -22,7 +22,7 @@ const dispacementTexture = texture.load("/texture/displacementMap.jpg");
 
 // cube texture loader
 const cubeTextureLoader = new THREE.CubeTextureLoader();
-scene.background = cubeTextureLoader.load([
+const envTexture = cubeTextureLoader.load([
   "/texture/env/px.png",
   "/texture/env/nx.png",
   "/texture/env/py.png",
@@ -30,6 +30,7 @@ scene.background = cubeTextureLoader.load([
   "/texture/env/pz.png",
   "/texture/env/nz.png",
 ]);
+scene.background = envTexture;
 
 //Resizing
 window.addEventListener("resize", () => {
@@ -47,16 +48,14 @@ window.addEventListener("resize", () => {
 });
 
 //Mesh
-const geometry = new THREE.PlaneGeometry(1, 1, 2, 2);
+const geometry = new THREE.SphereGeometry(0.5, 32, 32);
 const material = new THREE.MeshStandardMaterial({
-  //metalness: 0.4,
-  //roughness: 0,
-  map: colorTexture,
-  bumpMap: bumpTexture,
-  displacementMap: dispacementTexture,
+  metalness: 0.9,
+  roughness: 0.2,
+  envMap: envTexture,
 });
 const mesh = new THREE.Mesh(geometry, material);
-//scene.add(mesh);
+scene.add(mesh);
 
 //Camera
 const aspect = {
