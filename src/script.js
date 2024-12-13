@@ -16,21 +16,6 @@ scene.add(ambientLight, pointLight);
 
 //textures
 const texture = new THREE.TextureLoader();
-const colorTexture = texture.load("/texture/color.jpg");
-const bumpTexture = texture.load("/texture/bump.jpg");
-const dispacementTexture = texture.load("/texture/displacementMap.jpg");
-
-// cube texture loader
-const cubeTextureLoader = new THREE.CubeTextureLoader();
-const envTexture = cubeTextureLoader.load([
-  "/texture/env/px.png",
-  "/texture/env/nx.png",
-  "/texture/env/py.png",
-  "/texture/env/ny.png",
-  "/texture/env/pz.png",
-  "/texture/env/nz.png",
-]);
-scene.background = envTexture;
 
 //Resizing
 window.addEventListener("resize", () => {
@@ -48,14 +33,16 @@ window.addEventListener("resize", () => {
 });
 
 //Mesh
-const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-const material = new THREE.MeshStandardMaterial({
-  metalness: 0.9,
-  roughness: 0.2,
-  envMap: envTexture,
-});
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+const geometry = new THREE.BufferGeometry(1, 1);
+const verticesNumber = 1000;
+const VerticesAr = new Float32Array(verticesNumber * 3);
+for (let i = 0; i < verticesNumber * 3; i++) {
+  VerticesAr[i] = Math.random() - 0.5; // to rotate around y -0.5;
+}
+geometry.setAttribute("position", new THREE.BufferAttribute(VerticesAr, 3));
+const material = new THREE.PointsMaterial({ size: 0.02 });
+const points = new THREE.Points(geometry, material);
+scene.add(points);
 
 //Camera
 const aspect = {
