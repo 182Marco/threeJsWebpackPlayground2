@@ -11,7 +11,7 @@ const scene = new THREE.Scene();
 //lights
 const ambientLight = new THREE.AmbientLight(0xff0055, 0.3);
 const pointLight = new THREE.PointLight(0xffff00, 1);
-pointLight.position.set(2, 2, 2);
+pointLight.position.set(10, 0, 7);
 scene.add(ambientLight, pointLight);
 
 //Resizing
@@ -31,7 +31,7 @@ window.addEventListener("resize", () => {
 
 //Mesh
 const geometry = new THREE.TorusGeometry(0.3, 0.2, 32, 32);
-const material = new THREE.MeshLambertMaterial();
+const material = new THREE.MeshPhongMaterial({ shininess: 200 });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
